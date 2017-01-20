@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="schedulerModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=E:\Work\KodeksArmScheduler\scheduler.sqlite" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'main.DbVersion' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="DbVersion">
+          <Property Name="version" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="build" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="last_update_time" Type="nvarchar" MaxLength="2147483647" />
+        </EntityType>-->
+        <EntityType Name="Event">
+          <Key>
+            <PropertyRef Name="id_event" />
+          </Key>
+          <Property Name="id_event" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fid_event_type" Type="integer" Nullable="false" />
+          <Property Name="start_week_days" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="start_time" Type="nvarchar" MaxLength="2147483647" />
+        </EntityType>
+        <EntityType Name="EventEmails">
+          <Key>
+            <PropertyRef Name="id_event_email" />
+          </Key>
+          <Property Name="id_event_email" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fid_event" Type="integer" />
+          <Property Name="email" Type="nvarchar" MaxLength="2147483647" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6005: The data type '' is currently not supported for the target Entity Framework version; the column 'id_event_log' in the table 'main.EventLog' was excluded.
+warning 6013: The table/view 'main.EventLog' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="EventLog">
+          <Property Name="event_time" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="fid_event" Type="integer" />
+          <Property Name="event_state" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="event_errors" Type="nvarchar" MaxLength="2147483647" />
+        </EntityType>-->
+        <EntityType Name="EventType">
+          <Key>
+            <PropertyRef Name="id_event_type" />
+          </Key>
+          <Property Name="id_event_type" Type="integer" Nullable="false" />
+          <Property Name="fid_event_type" Type="integer" />
+          <Property Name="name" Type="nvarchar" MaxLength="2147483647" />
+        </EntityType>
+        <EntityContainer Name="schedulerModelStoreContainer">
+          <EntitySet Name="Event" EntityType="Self.Event" store:Type="Tables" />
+          <EntitySet Name="EventEmails" EntityType="Self.EventEmails" store:Type="Tables" />
+          <EntitySet Name="EventType" EntityType="Self.EventType" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="schedulerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Event">
+          <Key>
+            <PropertyRef Name="id_event" />
+          </Key>
+          <Property Name="id_event" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fid_event_type" Type="Int64" Nullable="false" />
+          <Property Name="start_week_days" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="start_time" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="EventEmails">
+          <Key>
+            <PropertyRef Name="id_event_email" />
+          </Key>
+          <Property Name="id_event_email" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fid_event" Type="Int64" />
+          <Property Name="email" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="EventType">
+          <Key>
+            <PropertyRef Name="id_event_type" />
+          </Key>
+          <Property Name="id_event_type" Type="Int64" Nullable="false" />
+          <Property Name="fid_event_type" Type="Int64" />
+          <Property Name="name" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="schedulerEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Event" EntityType="Self.Event" />
+          <EntitySet Name="EventEmails" EntityType="Self.EventEmails" />
+          <EntitySet Name="EventType" EntityType="Self.EventType" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="schedulerModelStoreContainer" CdmEntityContainer="schedulerEntities">
+          <EntitySetMapping Name="Event">
+            <EntityTypeMapping TypeName="schedulerModel.Event">
+              <MappingFragment StoreEntitySet="Event">
+                <ScalarProperty Name="id_event" ColumnName="id_event" />
+                <ScalarProperty Name="fid_event_type" ColumnName="fid_event_type" />
+                <ScalarProperty Name="start_week_days" ColumnName="start_week_days" />
+                <ScalarProperty Name="start_time" ColumnName="start_time" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EventEmails">
+            <EntityTypeMapping TypeName="schedulerModel.EventEmails">
+              <MappingFragment StoreEntitySet="EventEmails">
+                <ScalarProperty Name="id_event_email" ColumnName="id_event_email" />
+                <ScalarProperty Name="fid_event" ColumnName="fid_event" />
+                <ScalarProperty Name="email" ColumnName="email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EventType">
+            <EntityTypeMapping TypeName="schedulerModel.EventType">
+              <MappingFragment StoreEntitySet="EventType">
+                <ScalarProperty Name="id_event_type" ColumnName="id_event_type" />
+                <ScalarProperty Name="fid_event_type" ColumnName="fid_event_type" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

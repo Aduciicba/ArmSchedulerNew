@@ -1,0 +1,193 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SchedulerModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=E:\Work\KodeksArmScheduler\scheduler.sqlite" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="DbVersion">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="version" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="build" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="last_update_time" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="id" Type="integer" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Event">
+          <Key>
+            <PropertyRef Name="id_event" />
+          </Key>
+          <Property Name="id_event" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fid_event_type" Type="integer" Nullable="false" />
+          <Property Name="start_week_days" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="start_time" Type="nvarchar" MaxLength="2147483647" />
+        </EntityType>
+        <EntityType Name="EventEmails">
+          <Key>
+            <PropertyRef Name="id_event_email" />
+          </Key>
+          <Property Name="id_event_email" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fid_event" Type="integer" />
+          <Property Name="email" Type="nvarchar" MaxLength="2147483647" />
+        </EntityType>
+        <EntityType Name="EventLog">
+          <Key>
+            <PropertyRef Name="id_event_log" />
+          </Key>
+          <Property Name="id_event_log" Type="integer" Nullable="false" />
+          <Property Name="event_time" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="fid_event" Type="integer" />
+          <Property Name="event_state" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="event_errors" Type="nvarchar" MaxLength="2147483647" />
+        </EntityType>
+        <EntityType Name="EventType">
+          <Key>
+            <PropertyRef Name="id_event_type" />
+          </Key>
+          <Property Name="id_event_type" Type="integer" Nullable="false" />
+          <Property Name="fid_event_type" Type="integer" />
+          <Property Name="name" Type="nvarchar" MaxLength="2147483647" />
+        </EntityType>
+        <EntityContainer Name="SchedulerModelStoreContainer">
+          <EntitySet Name="DbVersion" EntityType="Self.DbVersion" store:Type="Tables" />
+          <EntitySet Name="Event" EntityType="Self.Event" store:Type="Tables" />
+          <EntitySet Name="EventEmails" EntityType="Self.EventEmails" store:Type="Tables" />
+          <EntitySet Name="EventLog" EntityType="Self.EventLog" store:Type="Tables" />
+          <EntitySet Name="EventType" EntityType="Self.EventType" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SchedulerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="DbVersion">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="version" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="build" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="last_update_time" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="id" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Event">
+          <Key>
+            <PropertyRef Name="id_event" />
+          </Key>
+          <Property Name="id_event" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fid_event_type" Type="Int64" Nullable="false" />
+          <Property Name="start_week_days" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="start_time" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="EventEmail">
+          <Key>
+            <PropertyRef Name="id_event_email" />
+          </Key>
+          <Property Name="id_event_email" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fid_event" Type="Int64" />
+          <Property Name="email" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="EventLog">
+          <Key>
+            <PropertyRef Name="id_event_log" />
+          </Key>
+          <Property Name="id_event_log" Type="Int64" Nullable="false" />
+          <Property Name="event_time" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="fid_event" Type="Int64" />
+          <Property Name="event_state" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="event_errors" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="EventType">
+          <Key>
+            <PropertyRef Name="id_event_type" />
+          </Key>
+          <Property Name="id_event_type" Type="Int64" Nullable="false" />
+          <Property Name="fid_event_type" Type="Int64" />
+          <Property Name="name" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="SchedulerEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="DbVersions" EntityType="Self.DbVersion" />
+          <EntitySet Name="Events" EntityType="Self.Event" />
+          <EntitySet Name="EventEmails" EntityType="Self.EventEmail" />
+          <EntitySet Name="EventLogs" EntityType="Self.EventLog" />
+          <EntitySet Name="EventTypes" EntityType="Self.EventType" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SchedulerModelStoreContainer" CdmEntityContainer="SchedulerEntities">
+          <EntitySetMapping Name="DbVersions">
+            <EntityTypeMapping TypeName="SchedulerModel.DbVersion">
+              <MappingFragment StoreEntitySet="DbVersion">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="build" ColumnName="build" />
+                <ScalarProperty Name="last_update_time" ColumnName="last_update_time" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Events">
+            <EntityTypeMapping TypeName="SchedulerModel.Event">
+              <MappingFragment StoreEntitySet="Event">
+                <ScalarProperty Name="id_event" ColumnName="id_event" />
+                <ScalarProperty Name="fid_event_type" ColumnName="fid_event_type" />
+                <ScalarProperty Name="start_week_days" ColumnName="start_week_days" />
+                <ScalarProperty Name="start_time" ColumnName="start_time" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EventEmails">
+            <EntityTypeMapping TypeName="SchedulerModel.EventEmail">
+              <MappingFragment StoreEntitySet="EventEmails">
+                <ScalarProperty Name="id_event_email" ColumnName="id_event_email" />
+                <ScalarProperty Name="fid_event" ColumnName="fid_event" />
+                <ScalarProperty Name="email" ColumnName="email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EventLogs">
+            <EntityTypeMapping TypeName="SchedulerModel.EventLog">
+              <MappingFragment StoreEntitySet="EventLog">
+                <ScalarProperty Name="id_event_log" ColumnName="id_event_log" />
+                <ScalarProperty Name="event_time" ColumnName="event_time" />
+                <ScalarProperty Name="fid_event" ColumnName="fid_event" />
+                <ScalarProperty Name="event_state" ColumnName="event_state" />
+                <ScalarProperty Name="event_errors" ColumnName="event_errors" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EventTypes">
+            <EntityTypeMapping TypeName="SchedulerModel.EventType">
+              <MappingFragment StoreEntitySet="EventType">
+                <ScalarProperty Name="id_event_type" ColumnName="id_event_type" />
+                <ScalarProperty Name="fid_event_type" ColumnName="fid_event_type" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
